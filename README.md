@@ -4,19 +4,19 @@
 npm i 
 ```
 
-#Ejecucion
+# Ejecucion
 
 ```js
 npm run dev
 ```
 
-#Rutas
+# Rutas
 
-| Tipo | ruta  | Requiere 'Authorization' Header
-| :---: | :-: | :-: |
-| Post | localhost:3000/auth/signIn | no
-| Post | localhost:3000/auth/signUp | no
-| Get |  localhost:3000/clima/:ciudad | si
-| Get | localhost:3000/transacciones | si
+| Tipo | ruta  | Requiere 'Authorization' Header | Body
+| :---: | :-: | :-: | :-: | 
+| Post | localhost:3000/auth/signIn | no | { user:<usuario> , password:<password>}
+| Post | localhost:3000/auth/signUp | no | { user:<usuario> , password:<password>}
+| Get |  localhost:3000/clima/:ciudad | si | No tiene
+| Get | localhost:3000/transacciones | si | No tiene
 
 
