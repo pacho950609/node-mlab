@@ -34,12 +34,11 @@ routeLoader(app)
 
 //se ejecuta cuando se usa next(err) con el fin de poder hacer alguna accion con todos los errores como crear logs
 app.use((err, req, res, next) => {   
-    if (res.headersSent) 
-    {
-        return next(err);
-    }
-    res.status(err.status);
-    res.send(err.message); 
+	if (res.headersSent) {
+		return next(err);
+	}
+	res.status(err.status);
+	res.send(err.message); 
 })
 
 

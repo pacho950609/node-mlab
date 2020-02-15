@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "source .env && nodemon src/bin/run.js"
+    "dev": "source .env && nodemon src/bin/run.js",
+    "lint": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@types/mongodb": "^3.3.16",
+    "eslint": "^6.8.0",
     "nodemon": "^1.18.11"
   }
 }

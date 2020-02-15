@@ -3,23 +3,21 @@ const MongoClient = require( 'mongodb' ).MongoClient;
 let _db;
 const conectionurl = process.env.dbUrl;
 
-async function connectToServer( callback ){
+async function connectToServer() {
 
-  option = {
-       useNewUrlParser: true 
-  }
+	const option = {
+		useNewUrlParser: true 
+	}
 
-  client = await MongoClient.connect(conectionurl,option)
-  _db = client.db('Database1')
+	const client = await MongoClient.connect(conectionurl,option)
+	_db = client.db('Database1')
   
 }
 
-function getDb(){
-  return _db;
+function getDb() {
+	return _db;
 }
 
 module.exports = {
-
-  connectToServer, getDb
-
+	connectToServer, getDb
 };

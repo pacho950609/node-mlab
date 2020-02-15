@@ -1,0 +1,23 @@
+{
+    "env": {
+        "browser": false,
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "rules": {
+        "indent": ["error", "tab"],
+        "brace-style": ["error","1tbs"],
+        "space-before-function-paren": ["error","never"],
+        "space-before-blocks": ["error","always"],
+        "keyword-spacing": ["error"]
+    }
+}
