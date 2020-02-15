@@ -4,8 +4,9 @@ const db = require( '../db/config' ).getDb()
 const weather = require('weather-js');
 const debug = require('debug')('backend:routes:clima')
 const moment = require('moment')
+const wrapper = require('./../utils/wrapper')
 
-router.get('/:ciudad', async(req, res, next) => {
+router.get('/:ciudad', wrapper(async(req, res, next) => {
 
 	debug("Iniciando busqueda de la ciudad %s",req.params.ciudad)
 
@@ -25,7 +26,7 @@ router.get('/:ciudad', async(req, res, next) => {
 		if (err) {
 			const err = new Error('Ha ocurrido un error buscando el clima')
 			err.status = 401
-			next(err)
+			throw err
 		} else {
 			debug("Busqueda de %s terminada",req.params.ciudad)
 			if (JSON.stringify(result, null, 2) == '[]') {
@@ -37,7 +38,7 @@ router.get('/:ciudad', async(req, res, next) => {
 			}
 		}
 	});
-})
+}))
   
 
 
