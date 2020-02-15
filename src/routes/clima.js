@@ -9,7 +9,7 @@ router.get('/:ciudad', async (req, res) => {
 
     debug("Iniciando busqueda de la ciudad %s",req.params.ciudad)
 
-    let transacciones = db.collection('transacciones')
+    const transacciones = db.collection('transacciones')
 
     debug("Insertando transaccion")
 

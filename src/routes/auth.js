@@ -6,14 +6,14 @@ const bcrypt = require('bcrypt')
 
 router.post('/signIn', async(req, res,next) => {
 
-    let usuarios = db.collection('usuarios')
-
-    let usuario = await usuarios.findOne({
-        usuario: req.body.user,
+    const usuarios = db.collection('usuarios')
+    const { user, password} = req.body
+    const usuario = await usuarios.findOne({
+        usuario: user,
     })
 
-    if(usuario && bcrypt.compareSync(req.body.password, usuario.password)){
-        let token = jwt.sign({ id: usuario._id , user: usuario.usuario }, process.env.jwtKey);
+    if(usuario && bcrypt.compareSync(password, usuario.password)){
+        const token = jwt.sign({ id: usuario._id , user: usuario.usuario }, process.env.jwtKey);
         res.send(token)
     }
 
@@ -27,8 +27,9 @@ router.post('/signIn', async(req, res,next) => {
 
 router.post('/signUp', async(req, res) => {
 
-    let usuarios = db.collection('usuarios')
-    let usuario = await usuarios.findOne({
+    const { user, password} = req.body
+    const usuarios = db.collection('usuarios')
+    const usuario = await usuarios.findOne({
         usuario: req.body.user,
     })
 
@@ -39,10 +40,10 @@ router.post('/signUp', async(req, res) => {
     }
     else{
         const salt = await bcrypt.genSalt(10)
-        let password = await bcrypt.hash(req.body.password, salt)
+        const password = await bcrypt.hash(password, salt)
     
         await usuarios.insertOne({
-            usuario: req.body.user,
+            usuario: user,
             password: password,
         })
         res.send("ok")

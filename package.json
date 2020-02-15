@@ -29,6 +29,7 @@
     "weather-js": "^2.0.0"
   },
   "devDependencies": {
+    "@types/mongodb": "^3.3.16",
     "nodemon": "^1.18.11"
   }
 }
