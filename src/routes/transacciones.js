@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const debug = require('debug')('backend:routes:transacciones')
 const wrapper = require('./../utils/wrapper')
-const {Transaction} = require('./../entities/Transaction')
+const { Transaction } = require('./../entities/Transaction')
 
 
 router.get('/', wrapper(async(req, res) => {
