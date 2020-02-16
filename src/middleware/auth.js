@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const noAuth = ['/auth']
 const debug = require('debug')('backend:middleware:auth')
 
-function     validateToken(req,res,next) {   
+function validateToken(req,res,next) {   
 	if (noAuth.some(i => req.path.startsWith(i))) {
 		debug("la ruta no requiere autenticacion")
 		return next()
