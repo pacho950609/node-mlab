@@ -1,9 +1,5 @@
 const debug = require('debug')('backend:starter')
-const { dbUrl } = process.env;
-const mongoose = require('mongoose');
-const { dbName } = process.env
-mongoose.connect(dbUrl, { useNewUrlParser: true, dbName });
-const db = mongoose.connection;
+const db  = require('./../db/config');
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
