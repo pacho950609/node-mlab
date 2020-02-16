@@ -4,17 +4,17 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const debug = require('debug')('backend:routes:auth')
 const wrapper = require('./../utils/wrapper')
-const { User } = require('../entities/Usuario')
+const { User } = require('../entities/User')
 
 router.post('/signin', wrapper(async(req, res) => {
 
-	const { user, password } = req.body
-	const usuario = await User.findOne({
-		usuario: user,
+	const { username, password } = req.body
+	const user = await User.findOne({
+		username,
 	})
 
-	if (usuario && bcrypt.compareSync(password, usuario.password)) {
-		const token = jwt.sign({ id: usuario._id , user: usuario.usuario }, process.env.jwtKey);
+	if (user && bcrypt.compareSync(password, user.password)) {
+		const token = jwt.sign({ id: user._id , username: user.username }, process.env.jwtKey);
 		res.send(token)
 	} else {
 		debug("Usuario o contraseña incorrecta")
@@ -27,13 +27,13 @@ router.post('/signin', wrapper(async(req, res) => {
 
 router.post('/signup', wrapper(async(req, res) => {
 
-	const { user, password } = req.body
+	const { username, password } = req.body
 
-	const usuario = await User.findOne({
-		user_name: req.body.user,
+	const user = await User.findOne({
+		username,
 	})
 
-	if (usuario) {
+	if (user) {
 		const err = new Error('Ya existe el usuario')
 		err.status = 401
 		throw err
@@ -42,7 +42,7 @@ router.post('/signup', wrapper(async(req, res) => {
 		const passwordC = await bcrypt.hash(password, salt)
 		
 		await User.insertMany({
-			usuario: user,
+			username,
 			password: passwordC,
 		})
 
