@@ -1,16 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken');
-const db = require( './../db/config' ).getDb()
 const bcrypt = require('bcrypt')
 const debug = require('debug')('backend:routes:auth')
 const wrapper = require('./../utils/wrapper')
+const { User } = require('../entities/Usuario')
 
-router.post('/signIn', wrapper(async(req, res) => {
+router.post('/signin', wrapper(async(req, res) => {
 
-	const usuarios = db.collection('usuarios')
 	const { user, password } = req.body
-	const usuario = await usuarios.findOne({
+	const usuario = await User.findOne({
 		usuario: user,
 	})
 
@@ -26,12 +25,12 @@ router.post('/signIn', wrapper(async(req, res) => {
 
 }))
 
-router.post('/signUp', wrapper(async(req, res) => {
+router.post('/signup', wrapper(async(req, res) => {
 
 	const { user, password } = req.body
-	const usuarios = db.collection('usuarios')
-	const usuario = await usuarios.findOne({
-		usuario: req.body.user,
+
+	const usuario = await User.findOne({
+		user_name: req.body.user,
 	})
 
 	if (usuario) {
@@ -41,11 +40,12 @@ router.post('/signUp', wrapper(async(req, res) => {
 	} else {
 		const salt = await bcrypt.genSalt(10)
 		const passwordC = await bcrypt.hash(password, salt)
-    
-		await usuarios.insertOne({
+		
+		await User.insertMany({
 			usuario: user,
 			password: passwordC,
 		})
+
 		res.send("ok")
 	}
 	

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const db = require( '../db/config' ).getDb()
+const db = null
 const weather = require('weather-js');
 const debug = require('debug')('backend:routes:clima')
 const moment = require('moment')

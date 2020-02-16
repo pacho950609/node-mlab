@@ -1,15 +1,13 @@
-const mongo = require( '../db/config' );
 const debug = require('debug')('backend:starter')
+const { dbUrl } = process.env;
+const mongoose = require('mongoose');
+const { dbName } = process.env
+mongoose.connect(dbUrl, {useNewUrlParser: true, dbName });
+const db = mongoose.connection;
 
-async function inicio() {
-	debug('Iniciando coneccion a la db...')
-	try {
-		await mongo.connectToServer()
-	} catch (e) {
-		debug('No se logro conectar con la base de datos %o',e)
-	}
-	debug('Se ha conectado a la db')
-	debug('Iniciando servidor...')
+db.on('error', console.error.bind(console, 'connection error:'));
+
+db.once('open', function() {
 	try {
 		const app = require('../app')
 		app.listen(process.env.PORT || '4000', function() {
@@ -18,8 +16,5 @@ async function inicio() {
 	} catch (e) {
 		debug('Error iniciando servidor %o',e)
 	}
-}
-
-inicio()
-
+});
 
