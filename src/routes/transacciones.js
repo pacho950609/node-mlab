@@ -1,20 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const db = null
 const debug = require('debug')('backend:routes:transacciones')
 const wrapper = require('./../utils/wrapper')
+const {Transaction} = require('./../entities/Transaction')
 
 
 router.get('/', wrapper(async(req, res) => {
-
-	const transaccionesCollection = db.collection('transacciones')
-	debug('Buscando transacciones del usuario %s',req.user.user)
-
-	const transacciones = await transaccionesCollection.find({ usuario:req.user.user }).toArray()
-
-	debug('Se ha terminado de buscar las transacciones de %s',req.user.user)
-
-	res.send(transacciones)
+	debug('Buscando transacciones del usuario %s',req.user.username)
+	const transactions = await Transaction.find({ usuario:req.user.user })
+	debug('Se ha terminado de buscar las transacciones de %s',req.user.username)
+	res.send(transactions)
 }))
   
 
