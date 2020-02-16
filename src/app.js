@@ -21,7 +21,7 @@ app.use(express.json())
 app.use(cors())
 
 //middleware para tener logs de toda peticion de entrada 
-app.use(logger('backend:requests', 'START :method :url', {immediate: true}))
+app.use(logger('backend:requests', 'START :method :url', { immediate: true }))
 
 //middleware para tener logs de toda respuesta
 app.use(logger('backend:requests', 'DONE :method :url :status :res[content-length] - :response-time ms', {}))
@@ -37,8 +37,8 @@ app.use((err, req, res, next) => {
 	if (res.headersSent) {
 		return next(err);
 	}
-	res.status(err.status);
-	res.send(err.message); 
+	res.status(err.status || 500);
+	res.send({ error: err.message }); 
 })
 
 

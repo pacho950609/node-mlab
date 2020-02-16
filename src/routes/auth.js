@@ -6,10 +6,10 @@ const bcrypt = require('bcrypt')
 const debug = require('debug')('backend:routes:auth')
 const wrapper = require('./../utils/wrapper')
 
-router.post('/signIn', wrapper(async(req, res,next) => {
+router.post('/signIn', wrapper(async(req, res) => {
 
 	const usuarios = db.collection('usuarios')
-	const { user, password} = req.body
+	const { user, password } = req.body
 	const usuario = await usuarios.findOne({
 		usuario: user,
 	})
@@ -26,9 +26,9 @@ router.post('/signIn', wrapper(async(req, res,next) => {
 
 }))
 
-router.post('/signUp', wrapper(async(req, res, next) => {
+router.post('/signUp', wrapper(async(req, res) => {
 
-	const {user, password} = req.body
+	const { user, password } = req.body
 	const usuarios = db.collection('usuarios')
 	const usuario = await usuarios.findOne({
 		usuario: req.body.user,

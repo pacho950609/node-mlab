@@ -1,7 +1,7 @@
     
 const MongoClient = require( 'mongodb' ).MongoClient;
+const { dbUrl } = process.env;
 let _db;
-const conectionurl = process.env.dbUrl;
 
 async function connectToServer() {
 
@@ -9,7 +9,7 @@ async function connectToServer() {
 		useNewUrlParser: true 
 	}
 
-	const client = await MongoClient.connect(conectionurl,option)
+	const client = await MongoClient.connect(dbUrl,option)
 	_db = client.db('Database1')
   
 }
