@@ -6,9 +6,8 @@ const { Transaction } = require('./../entities/Transaction')
 
 
 router.get('/', wrapper(async(req, res) => {
-	debug('Buscando transacciones del usuario %s',req.user.username)
-	const transactions = await Transaction.find({ usuario:req.user.user })
-	debug('Se ha terminado de buscar las transacciones de %s',req.user.username)
+	const transactions = await Transaction.find({ username: req.user.username })
+	debug('user transactions %o',transactions)
 	res.send(transactions)
 }))
   

@@ -5,7 +5,7 @@ const app = express()
 const helmet = require('helmet');
 const routeLoader = require('express-route-autoloader')
 const logger = require('morgan-debug')
-const authMiddleware = require('./middleware/auth')
+const middlewares = require('./middleware/auth')
 
 
 //middleware para comprimir respuesta para aumentar el rendimiento
@@ -27,7 +27,10 @@ app.use(logger('backend:requests', 'START :method :url', { immediate: true }))
 app.use(logger('backend:requests', 'DONE :method :url :status :res[content-length] - :response-time ms', {}))
 
 //valida el token
-app.use(authMiddleware.validateToken)
+app.use(middlewares.validateToken)
+
+//hace logs de los bodys
+app.use(middlewares.logBody)
 
 //redirecciona peticiones a la carpeta routes
 routeLoader(app)
