@@ -29,9 +29,6 @@ app.use(logger('backend:requests', 'DONE :method :url :status :res[content-lengt
 //valida el token
 app.use(middlewares.validateToken)
 
-//hace logs de los bodys
-app.use(middlewares.logBody)
-
 //redirecciona peticiones a la carpeta routes
 routeLoader(app)
 

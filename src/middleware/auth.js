@@ -21,15 +21,4 @@ function validateToken(req,res,next) {
 	}
 }
 
-// Hace logs del body de los requests
-function logBody(req,res,next) {   
-	const bodyMethods = ['PUT','POST','PATCH']
-	if (bodyMethods.some( x => x === req.method)) {
-		debug("request body %o", req.body)
-	}
-	return next()
-    
-}
-
-
-module.exports = { validateToken, logBody }
+module.exports = { validateToken }
